@@ -6,6 +6,7 @@ let player : {name: string, chips: number} = {
 const startGame = document.getElementById("startGame")
 const submitButton = document.getElementById("submit-name")
 const nameSection = document.getElementById("name-section")
+const gameSection = document.getElementById("game-section")
 
 if (startGame) {
     startGame.addEventListener("click", () => {
@@ -18,5 +19,6 @@ if (submitButton) {
     submitButton.addEventListener("click", () => {
         player.name = (document.getElementById("player-name") as HTMLInputElement).value
         nameSection!.style.display = "none"
+        gameSection!.style.display = "flex"
     })
 }
