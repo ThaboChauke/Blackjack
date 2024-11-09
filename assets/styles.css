@@ -110,7 +110,6 @@ body {
 /* Game Display Area */
 #display-game {
     flex: 3;                             /* Take up 3/4 of the space */
-    background-color: lightgray;
     padding: 2px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     margin-right: 20px;
