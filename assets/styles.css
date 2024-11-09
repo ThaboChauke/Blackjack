@@ -150,7 +150,7 @@ body {
 /*    background-color: #3e8e41;*/
 /*}*/
 
-#dealer-cards img {
+#dealer-cards img #player-cards img{
     margin: 5px;
     border: 5px solid #fff;
     border-radius: 5px;

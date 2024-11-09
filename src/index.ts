@@ -1,6 +1,6 @@
 type Card = {
     value: number
-    cardImage: string
+    image: string
 }
 
 let player : {name: string, chips: number} = {
@@ -8,9 +8,12 @@ let player : {name: string, chips: number} = {
     chips: 10000
 }
 let dealerCards: Card[] = []
-let playerCards: string[] = []
+let playerCards: Card[] = []
 let playerSum: number
 let dealerSum: number
+let hasBlackjack: boolean = false
+let isAlive: boolean = false
+let message: string
 
 const startGame = document.getElementById("startGame")
 const submitButton = document.getElementById("submit-name")
@@ -37,6 +40,8 @@ if (submitButton) {
         player.name = (document.getElementById("player-name") as HTMLInputElement).value
         nameSection!.style.display = "none"
         gameSection!.style.display = "flex"
+
+        runGame()
     })
 }
 
@@ -60,17 +65,47 @@ function getRandomCard() : Card {
     } else {
         cardImage = "assets/images/" + randomNumber + "_of_" + randomSuit + ".png"
     }
-    return { value: cardValue, cardImage: cardImage }
+    return { value: cardValue, image: cardImage }
 }
 
-function renderDealerCards() {
+function renderDealerCards(): void {
     dealerCardEl!.innerHTML = ""
     dealerSumEl!.textContent = "Sum: " + dealerSum
 
     for (let i = 0; i < dealerCards.length; i++) {
-        let cardImage = document.createElement("img");
-        cardImage.src = dealerCards[i].cardImage
+        let cardImage = document.createElement("img")
+        cardImage.src = dealerCards[i].image
         cardImage.style.width = "100px"
         dealerCardEl!.appendChild(cardImage)
     }
+}
+
+function renderGame(): void {
+    playerCardEl!.innerHTML = ""
+    for (let i = 0; i < playerCards.length; i++) {
+        let cardImage = document.createElement("img")
+        cardImage.src = playerCards[i].image
+        cardImage.style.width = "100px"
+        playerCardEl!.appendChild(cardImage)
+    }
+
+    playerSumEl!.textContent = "Sum: " + playerSum
+}
+
+function runGame(): void {
+    isAlive = true
+    dealerCards = []
+    dealerSum = 0
+
+    let dealerFirstCard = getRandomCard()
+    dealerCards.push(dealerFirstCard)
+    dealerSum += dealerFirstCard.value
+
+    let firstCard = getRandomCard()
+    let secondCard = getRandomCard()
+    playerSum = firstCard.value + secondCard.value
+    playerCards = [firstCard, secondCard]
+
+    renderGame()
+    renderDealerCards()
 }

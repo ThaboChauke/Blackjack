@@ -7,6 +7,9 @@ let dealerCards = [];
 let playerCards = [];
 let playerSum;
 let dealerSum;
+let hasBlackjack = false;
+let isAlive = false;
+let message;
 const startGame = document.getElementById("startGame");
 const submitButton = document.getElementById("submit-name");
 const nameSection = document.getElementById("name-section");
@@ -28,9 +31,7 @@ if (submitButton) {
         player.name = document.getElementById("player-name").value;
         nameSection.style.display = "none";
         gameSection.style.display = "flex";
-        let dealerFirstCard = getRandomCard();
-        dealerCards.push(dealerFirstCard);
-        renderDealerCards();
+        runGame();
     });
 }
 function getRandomCard() {
@@ -55,15 +56,39 @@ function getRandomCard() {
     else {
         cardImage = "assets/images/" + randomNumber + "_of_" + randomSuit + ".png";
     }
-    return { value: cardValue, cardImage: cardImage };
+    return { value: cardValue, image: cardImage };
 }
 function renderDealerCards() {
     dealerCardEl.innerHTML = "";
     dealerSumEl.textContent = "Sum: " + dealerSum;
     for (let i = 0; i < dealerCards.length; i++) {
         let cardImage = document.createElement("img");
-        cardImage.src = dealerCards[i].cardImage;
+        cardImage.src = dealerCards[i].image;
         cardImage.style.width = "100px";
         dealerCardEl.appendChild(cardImage);
     }
+}
+function renderGame() {
+    playerCardEl.innerHTML = "";
+    for (let i = 0; i < playerCards.length; i++) {
+        let cardImage = document.createElement("img");
+        cardImage.src = playerCards[i].image;
+        cardImage.style.width = "100px";
+        playerCardEl.appendChild(cardImage);
+    }
+    playerSumEl.textContent = "Sum: " + playerSum;
+}
+function runGame() {
+    isAlive = true;
+    dealerCards = [];
+    dealerSum = 0;
+    let dealerFirstCard = getRandomCard();
+    dealerCards.push(dealerFirstCard);
+    dealerSum += dealerFirstCard.value;
+    let firstCard = getRandomCard();
+    let secondCard = getRandomCard();
+    playerSum = firstCard.value + secondCard.value;
+    playerCards = [firstCard, secondCard];
+    renderGame();
+    renderDealerCards();
 }
