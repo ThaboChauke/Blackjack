@@ -25,6 +25,7 @@ const newCardEl = document.getElementById("newCard")
 const surrender = document.getElementById("surrender")
 const playerEl = document.getElementById("player-el")
 const messageEl = document.getElementById("message-el")
+const startOver = document.getElementById("reset")
 
 let playerSumEl = document.getElementById("player-sum-el")
 let dealerSumEl = document.getElementById("dealer-sum-el")
@@ -141,4 +142,10 @@ newCardEl!.addEventListener("click", () => {
 surrender!.addEventListener("click", () => {
     gameSection!.style.display = "none"
     landingSection!.style.display = "flex"
+})
+
+startOver!.addEventListener("click", () => {
+    dealerCards = []
+    playerCards = []
+    runGame()
 })
