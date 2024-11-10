@@ -23,6 +23,8 @@ const landingSection = document.getElementById("landing-section")
 
 const newCardEl = document.getElementById("newCard")
 const surrender = document.getElementById("surrender")
+const playerEl = document.getElementById("player-el")
+const messageEl = document.getElementById("message-el")
 
 let playerSumEl = document.getElementById("player-sum-el")
 let dealerSumEl = document.getElementById("dealer-sum-el")
@@ -38,7 +40,14 @@ if (startGame) {
 
 if (submitButton) {
     submitButton.addEventListener("click", () => {
-        player.name = (document.getElementById("player-name") as HTMLInputElement).value
+        let name = (document.getElementById("player-name") as HTMLInputElement).value
+        if (name === "") {
+            player.name = "Player 1"
+        } else {
+            player.name = name
+        }
+        playerEl!.textContent = player.name + ": R" + player.chips
+
         nameSection!.style.display = "none"
         gameSection!.style.display = "flex"
 
