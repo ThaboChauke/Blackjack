@@ -16,6 +16,7 @@ const nameSection = document.getElementById("name-section");
 const gameSection = document.getElementById("game-section");
 const playerSection = document.getElementById("player-section");
 const dealerSection = document.getElementById("dealer-section");
+const newCardEl = document.getElementById("newCard");
 let playerSumEl = document.getElementById("player-sum-el");
 let dealerSumEl = document.getElementById("dealer-sum-el");
 let playerCardEl = document.getElementById("player-cards");
@@ -92,3 +93,11 @@ function runGame() {
     renderGame();
     renderDealerCards();
 }
+newCardEl.addEventListener("click", () => {
+    if (!hasBlackjack && isAlive) {
+        let newCard = getRandomCard();
+        playerSum += newCard.value;
+        playerCards.push(newCard);
+        renderGame();
+    }
+});
