@@ -47,7 +47,6 @@ if (submitButton) {
             player.name = name
         }
         playerEl!.textContent = player.name + ": R" + player.chips
-
         nameSection!.style.display = "none"
         gameSection!.style.display = "flex"
 
@@ -98,8 +97,18 @@ function renderGame(): void {
         cardImage.style.width = "100px"
         playerCardEl!.appendChild(cardImage)
     }
-
     playerSumEl!.textContent = "Sum: " + playerSum
+
+    if (playerSum <= 20) {
+        message = "Do you want to draw a new card?"
+    } else if (playerSum === 21) {
+        message = "You've got Blackjack!"
+        hasBlackjack = true
+    } else {
+        message = "You are out of the game"
+        isAlive = false
+    }
+    messageEl!.textContent = message
 }
 
 function runGame(): void {

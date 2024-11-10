@@ -87,6 +87,18 @@ function renderGame() {
         playerCardEl.appendChild(cardImage);
     }
     playerSumEl.textContent = "Sum: " + playerSum;
+    if (playerSum <= 20) {
+        message = "Do you want to draw a new card?";
+    }
+    else if (playerSum === 21) {
+        message = "You've got Blackjack!";
+        hasBlackjack = true;
+    }
+    else {
+        message = "You are out of the game";
+        isAlive = false;
+    }
+    messageEl.textContent = message;
 }
 function runGame() {
     isAlive = true;
