@@ -19,8 +19,10 @@ const startGame = document.getElementById("startGame")
 const submitButton = document.getElementById("submit-name")
 const nameSection = document.getElementById("name-section")
 const gameSection = document.getElementById("game-section")
+const landingSection = document.getElementById("landing-section")
 
 const newCardEl = document.getElementById("newCard")
+const surrender = document.getElementById("surrender")
 
 let playerSumEl = document.getElementById("player-sum-el")
 let dealerSumEl = document.getElementById("dealer-sum-el")
@@ -29,7 +31,7 @@ let dealerCardEl = document.getElementById("dealer-cards")
 
 if (startGame) {
     startGame.addEventListener("click", () => {
-        document.getElementById("landing-section")!.style.display = "none"
+        landingSection!.style.display = "none"
         nameSection!.style.display = "block"
     })
 }
@@ -116,4 +118,9 @@ newCardEl!.addEventListener("click", () => {
         playerCards.push(newCard)
         renderGame()
     }
+})
+
+surrender!.addEventListener("click", () => {
+    gameSection!.style.display = "none"
+    landingSection!.style.display = "flex"
 })
