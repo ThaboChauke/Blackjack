@@ -120,7 +120,13 @@ newCardEl.addEventListener("click", () => {
         let newCard = getRandomCard();
         playerSum += newCard.value;
         playerCards.push(newCard);
+        let dealersCard = getRandomCard();
+        dealerCards.push(dealersCard);
+        dealerSum += dealersCard.value;
         renderGame();
+        if (dealerSum <= 16) {
+            renderDealerCards();
+        }
     }
 });
 surrender.addEventListener("click", () => {
