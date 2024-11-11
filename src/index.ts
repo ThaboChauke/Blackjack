@@ -3,7 +3,7 @@ type Card = {
     image: string
 }
 
-let player : {name: string, chips: number} = {
+let player: { name: string, chips: number } = {
     name: "",
     chips: 500
 }
@@ -62,7 +62,7 @@ if (submitButton) {
     })
 }
 
-function getRandomCard() : Card {
+function getRandomCard(): Card {
     let randomNumber = Math.floor(Math.random() * 13) + 1
     let cardValue = randomNumber > 10 ? 10 : randomNumber
     let cardImage
@@ -75,14 +75,14 @@ function getRandomCard() : Card {
         cardValue = 11
     } else if (randomNumber === 11) {
         cardImage = "assets/images/jack_of_" + randomSuit + ".png"
-    } else if(randomNumber === 12) {
+    } else if (randomNumber === 12) {
         cardImage = "assets/images/queen_of_" + randomSuit + ".png"
-    } else if(randomNumber === 13) {
+    } else if (randomNumber === 13) {
         cardImage = "assets/images/king_of_" + randomSuit + ".png"
     } else {
         cardImage = "assets/images/" + randomNumber + "_of_" + randomSuit + ".png"
     }
-    return { value: cardValue, image: cardImage }
+    return {value: cardValue, image: cardImage}
 }
 
 function renderDealerCards(): void {
