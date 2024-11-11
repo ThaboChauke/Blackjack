@@ -1,7 +1,7 @@
 "use strict";
 let player = {
     name: "",
-    chips: 10000
+    chips: 500
 };
 let dealerCards = [];
 let playerCards = [];
@@ -20,7 +20,8 @@ const surrender = document.getElementById("surrender");
 const playerEl = document.getElementById("player-el");
 const messageEl = document.getElementById("message-el");
 const startOver = document.getElementById("reset");
-const turnEl = document.getElementById("turn");
+const standEl = document.getElementById("stand");
+const anotherRoundEl = document.getElementById("anotherRound");
 let playerSumEl = document.getElementById("player-sum-el");
 let dealerSumEl = document.getElementById("dealer-sum-el");
 let playerCardEl = document.getElementById("player-cards");
@@ -126,10 +127,12 @@ if (surrender) {
 }
 if (startOver) {
     startOver.addEventListener("click", () => {
+        message = "Try Your Luck";
         dealerCards = [];
         playerCards = [];
         isAlive = false;
         hasBlackjack = false;
+        player.chips = 500;
         runGame();
     });
 }
@@ -159,10 +162,39 @@ function checkGameOutcome() {
         message = "You win!";
         player.chips += 100;
     }
+    else if (player.chips <= 0) {
+        message = "You lose!. Out of Funds";
+        isAlive = false;
+    }
     else {
         message = "Dealer wins!";
         player.chips -= 100;
     }
     messageEl.textContent = message;
     playerEl.textContent = `${player.name}: R${player.chips}`;
+}
+function dealerPlay() {
+    while (dealerSum < 17 && isAlive && !hasBlackjack) {
+        let newCard = getRandomCard();
+        dealerCards.push(newCard);
+        dealerSum += newCard.value;
+    }
+    renderDealerCards();
+    checkGameOutcome();
+}
+if (standEl) {
+    standEl.addEventListener("click", () => {
+        dealerPlay();
+        checkGameOutcome();
+    });
+}
+if (anotherRoundEl) {
+    anotherRoundEl.addEventListener("click", () => {
+        message = "Try Your Luck";
+        dealerCards = [];
+        playerCards = [];
+        isAlive = false;
+        hasBlackjack = false;
+        runGame();
+    });
 }

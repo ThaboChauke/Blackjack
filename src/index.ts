@@ -27,6 +27,7 @@ const playerEl = document.getElementById("player-el")
 const messageEl = document.getElementById("message-el")
 const startOver = document.getElementById("reset")
 const standEl = document.getElementById("stand")
+const anotherRoundEl = document.getElementById("anotherRound")
 
 let playerSumEl = document.getElementById("player-sum-el")
 let dealerSumEl = document.getElementById("dealer-sum-el")
@@ -146,6 +147,7 @@ if (surrender) {
 
 if (startOver) {
     startOver.addEventListener("click", () => {
+        message = "Try Your Luck"
         dealerCards = []
         playerCards = []
         isAlive = false
@@ -157,34 +159,37 @@ if (startOver) {
 
 function checkGameOutcome(): void {
     if (playerSum > 21) {
-        message = "You went over 21. Dealer wins!";
-        isAlive = false;
+        message = "You went over 21. Dealer wins!"
+        isAlive = false
     } else if (dealerSum > 21) {
-        message = "Dealer went over 21. You win!";
-        player.chips += 100;
-        isAlive = false;
+        message = "Dealer went over 21. You win!"
+        player.chips += 100
+        isAlive = false
     } else if (playerSum === 21 && dealerSum !== 21) {
-        message = "Blackjack! You win!";
-        player.chips += 150;
-        hasBlackjack = true;
+        message = "Blackjack! You win!"
+        player.chips += 150
+        hasBlackjack = true
     } else if (dealerSum === 21 && playerSum !== 21) {
-        message = "Dealer has Blackjack. Dealer wins!";
-        isAlive = false;
+        message = "Dealer has Blackjack. Dealer wins!"
+        isAlive = false
     } else if (playerSum === dealerSum) {
-        message = "It's a tie!";
+        message = "It's a tie!"
     } else if (playerSum > dealerSum) {
-        message = "You win!";
-        player.chips += 100;
+        message = "You win!"
+        player.chips += 100
+    } else if (player.chips <= 0) {
+        message = "You lose!. Out of Funds"
+        isAlive = false
     } else {
-        message = "Dealer wins!";
-        player.chips -= 100;
+        message = "Dealer wins!"
+        player.chips -= 100
     }
 
-    messageEl!.textContent = message;
-    playerEl!.textContent = `${player.name}: R${player.chips}`;
+    messageEl!.textContent = message
+    playerEl!.textContent = `${player.name}: R${player.chips}`
 }
 
-function dealerPlay() {
+function dealerPlay(): void {
     while (dealerSum < 17 && isAlive && !hasBlackjack) {
         let newCard = getRandomCard()
         dealerCards.push(newCard)
@@ -198,5 +203,16 @@ if (standEl) {
     standEl.addEventListener("click", () => {
         dealerPlay()
         checkGameOutcome()
+    })
+}
+
+if (anotherRoundEl) {
+    anotherRoundEl.addEventListener("click", () => {
+        message = "Try Your Luck"
+        dealerCards = []
+        playerCards = []
+        isAlive = false
+        hasBlackjack = false
+        runGame()
     })
 }
