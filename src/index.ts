@@ -5,7 +5,7 @@ type Card = {
 
 let player : {name: string, chips: number} = {
     name: "",
-    chips: 10000
+    chips: 500
 }
 let dealerCards: Card[] = []
 let playerCards: Card[] = []
@@ -26,7 +26,7 @@ const surrender = document.getElementById("surrender")
 const playerEl = document.getElementById("player-el")
 const messageEl = document.getElementById("message-el")
 const startOver = document.getElementById("reset")
-const turnEl = document.getElementById("turn")
+const standEl = document.getElementById("stand")
 
 let playerSumEl = document.getElementById("player-sum-el")
 let dealerSumEl = document.getElementById("dealer-sum-el")
@@ -100,7 +100,6 @@ function renderGame(): void {
         playerCardEl!.appendChild(cardImage)
     }
     playerSumEl!.textContent = "Sum: " + playerSum
-
     checkGameOutcome()
 }
 
@@ -134,11 +133,6 @@ if (newCardEl) {
             dealerSum += dealersCard.value
 
             renderGame()
-
-            // if (dealerSum <= 16) {
-            //     console.log(dealerSum.toString())
-            //     renderDealerCards()
-            // }
         }
     })
 }
@@ -156,6 +150,7 @@ if (startOver) {
         playerCards = []
         isAlive = false
         hasBlackjack = false
+        player.chips = 500
         runGame()
     })
 }
@@ -187,4 +182,21 @@ function checkGameOutcome(): void {
 
     messageEl!.textContent = message;
     playerEl!.textContent = `${player.name}: R${player.chips}`;
+}
+
+function dealerPlay() {
+    while (dealerSum < 17 && isAlive && !hasBlackjack) {
+        let newCard = getRandomCard()
+        dealerCards.push(newCard)
+        dealerSum += newCard.value
+    }
+    renderDealerCards()
+    checkGameOutcome()
+}
+
+if (standEl) {
+    standEl.addEventListener("click", () => {
+        dealerPlay()
+        checkGameOutcome()
+    })
 }
