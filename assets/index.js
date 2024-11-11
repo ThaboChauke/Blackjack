@@ -20,6 +20,7 @@ const surrender = document.getElementById("surrender");
 const playerEl = document.getElementById("player-el");
 const messageEl = document.getElementById("message-el");
 const startOver = document.getElementById("reset");
+const turnEl = document.getElementById("turn");
 let playerSumEl = document.getElementById("player-sum-el");
 let dealerSumEl = document.getElementById("dealer-sum-el");
 let playerCardEl = document.getElementById("player-cards");
@@ -88,18 +89,7 @@ function renderGame() {
         playerCardEl.appendChild(cardImage);
     }
     playerSumEl.textContent = "Sum: " + playerSum;
-    if (playerSum <= 20) {
-        message = "Do you want to draw a new card?";
-    }
-    else if (playerSum === 21) {
-        message = "You've got Blackjack!";
-        hasBlackjack = true;
-    }
-    else {
-        message = "You are out of the game";
-        isAlive = false;
-    }
-    messageEl.textContent = message;
+    checkGameOutcome();
 }
 function runGame() {
     isAlive = true;
@@ -125,9 +115,6 @@ if (newCardEl) {
             dealerCards.push(dealersCard);
             dealerSum += dealersCard.value;
             renderGame();
-            if (dealerSum <= 16) {
-                renderDealerCards();
-            }
         }
     });
 }
@@ -141,6 +128,41 @@ if (startOver) {
     startOver.addEventListener("click", () => {
         dealerCards = [];
         playerCards = [];
+        isAlive = false;
+        hasBlackjack = false;
         runGame();
     });
+}
+function checkGameOutcome() {
+    if (playerSum > 21) {
+        message = "You went over 21. Dealer wins!";
+        isAlive = false;
+    }
+    else if (dealerSum > 21) {
+        message = "Dealer went over 21. You win!";
+        player.chips += 100;
+        isAlive = false;
+    }
+    else if (playerSum === 21 && dealerSum !== 21) {
+        message = "Blackjack! You win!";
+        player.chips += 150;
+        hasBlackjack = true;
+    }
+    else if (dealerSum === 21 && playerSum !== 21) {
+        message = "Dealer has Blackjack. Dealer wins!";
+        isAlive = false;
+    }
+    else if (playerSum === dealerSum) {
+        message = "It's a tie!";
+    }
+    else if (playerSum > dealerSum) {
+        message = "You win!";
+        player.chips += 100;
+    }
+    else {
+        message = "Dealer wins!";
+        player.chips -= 100;
+    }
+    messageEl.textContent = message;
+    playerEl.textContent = `${player.name}: R${player.chips}`;
 }
