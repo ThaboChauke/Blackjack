@@ -22,6 +22,10 @@ const messageEl = document.getElementById("message-el");
 const startOver = document.getElementById("reset");
 const standEl = document.getElementById("stand");
 const anotherRoundEl = document.getElementById("anotherRound");
+const placeholderCard = {
+    image: "assets/images/placeholder.png",
+    value: 0
+};
 let playerSumEl = document.getElementById("player-sum-el");
 let dealerSumEl = document.getElementById("dealer-sum-el");
 let playerCardEl = document.getElementById("player-cards");
@@ -95,9 +99,11 @@ function renderGame() {
 function runGame() {
     isAlive = true;
     dealerCards = [];
+    message = "Try Your Luck";
     dealerSum = 0;
     let dealerFirstCard = getRandomCard();
     dealerCards.push(dealerFirstCard);
+    dealerCards.push(placeholderCard);
     dealerSum += dealerFirstCard.value;
     let firstCard = getRandomCard();
     let secondCard = getRandomCard();
@@ -174,6 +180,9 @@ function checkGameOutcome() {
     playerEl.textContent = `${player.name}: R${player.chips}`;
 }
 function dealerPlay() {
+    if (dealerCards.length > 1) {
+        dealerCards.pop();
+    }
     while (dealerSum < 17 && isAlive && !hasBlackjack) {
         let newCard = getRandomCard();
         dealerCards.push(newCard);
