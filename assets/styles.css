@@ -155,7 +155,7 @@ body {
     background-color: #45a025;
 }
 
-#dealer-cards img #player-cards img{
+#dealer-cards img, #player-cards img{
     margin: 5px;
     border: 5px solid #fff;
     border-radius: 5px;
