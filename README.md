@@ -5,7 +5,7 @@ Welcome to **Blackjack Game** – a fun, interactive single-page web application
 ---
 
 ## 🔎 Overview
-This is a browser-based **Blackjack** game built with **HTML**, **CSS**, and **JavaScript**. The goal is to get as close to 21 as possible without going over, competing against a dealer. You start with R500 in chips and can win or lose based on your performance. 😎
+This is a browser-based **Blackjack** game built with **HTML**, **CSS**, and **TypeScript**. The goal is to get as close to 21 as possible without going over, competing against a dealer. You start with R500 in chips and can win or lose based on your performance. 😎
 
 ---
 
