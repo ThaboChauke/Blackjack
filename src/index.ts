@@ -130,31 +130,37 @@ function runGame(): void {
     renderDealerCards()
 }
 
-newCardEl!.addEventListener("click", () => {
-    if (!hasBlackjack && isAlive) {
-        let newCard = getRandomCard()
-        playerSum += newCard.value
-        playerCards.push(newCard)
+if (newCardEl) {
+    newCardEl.addEventListener("click", () => {
+        if (!hasBlackjack && isAlive) {
+            let newCard = getRandomCard()
+            playerSum += newCard.value
+            playerCards.push(newCard)
 
-        let dealersCard = getRandomCard()
-        dealerCards.push(dealersCard)
-        dealerSum += dealersCard.value
+            let dealersCard = getRandomCard()
+            dealerCards.push(dealersCard)
+            dealerSum += dealersCard.value
 
-        renderGame()
+            renderGame()
 
-        if (dealerSum <= 16) {
-            renderDealerCards()
+            if (dealerSum <= 16) {
+                renderDealerCards()
+            }
         }
-    }
-})
+    })
+}
 
-surrender!.addEventListener("click", () => {
-    gameSection!.style.display = "none"
-    landingSection!.style.display = "flex"
-})
+if (surrender) {
+    surrender.addEventListener("click", () => {
+        gameSection!.style.display = "none"
+        landingSection!.style.display = "flex"
+    })
+}
 
-startOver!.addEventListener("click", () => {
-    dealerCards = []
-    playerCards = []
-    runGame()
-})
+if (startOver) {
+    startOver.addEventListener("click", () => {
+        dealerCards = []
+        playerCards = []
+        runGame()
+    })
+}
